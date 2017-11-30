@@ -19,22 +19,64 @@ This is an R Markdow document. Markdown is a simple formatting syntax for author
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-## Scatter plot
+```{r install, include = FALSE}
+library(tidyverse)
 
+```
+
+## Scatter plot
 ```{r scatterplot}
 library(tidyverse)
 
 
 ggplot(data = mpg, aes(displ, hwy)) + 
   geom_point()
+
 ```
 
-## Including Plots
+## Scatter with colour 
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r colour fig}
+ggplot(data = mpg, aes(displ, hwy, colour = class)) + 
+  geom_point()
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Scatter b&w
+
+```{r b&w fig}
+ggplot(data = mpg, aes(displ, hwy, size = class)) + 
+  geom_point()
+```
+
+## Scatter alpha 
+```{r alpha}
+ggplot(data = mpg, aes(displ, hwy, size = class, colour = fl)) + 
+  geom_point(alpha = 0.4)
+```
+
+## Boxplot
+```{r boxplot}
+
+ggplot(mpg, aes(drv, hwy)) + 
+  geom_boxplot()
+```
+
+## Violin plot
+```{r violin}
+
+ggplot(mpg, aes(drv, hwy)) + 
+  geom_violin()
+```
+
+## Scatterplot with smooth
+
+```{r scatterplot smooth}
+
+
+ggplot(data = mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  geom_smooth(method = 'gam', formula = y ~ s(x)) + 
+  labs(title = "relationship between engine displacement and highway MPG",  x = "displacement", y = "Highway MPG") + 
+  theme_bw()
+
+```
